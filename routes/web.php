@@ -11,10 +11,10 @@
 |
 */
 
-$a = 1;
-$b = 1;
 
 Route::get('/', function () {
-    return 'hello';
-    return view('welcome');
+    return view('index');
 });
+
+
+Route::get('/news/', 'NewsController@showNews');
