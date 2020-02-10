@@ -5,12 +5,11 @@
 @endsection
 
 @section('content')
-<h1>Новости</h1>
-    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias architecto assumenda at dignissimos dolor, dolores
-ea eaque exercitationem harum iure nam necessitatibus nisi numquam, omnis perferendis ratione reiciendis voluptas
-voluptatem!
-
+<h1>{{ $title }}</h1>
 @foreach ($news as $new)
-    <p> {{ $new }}</p>
+    <a href="/news/show/{{ $new['id'] }}">
+        <h3> {{ $new['title'] }} </h3>
+        <p> {{ $new['text'] }}</p>
+    </a>
 @endforeach
 @endsection

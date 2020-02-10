@@ -17,4 +17,9 @@ Route::get('/', function () {
 });
 
 
-Route::get('/news/', 'NewsController@showNews');
+
+Route::get('/news', 'NewsController@allNews')->name('news');
+Route::get('/news/show/{id}', 'NewsController@oneNews');
+Route::get('/news/categories', 'NewsController@categoriesNews');
+Route::get('/news/categories/{category}', 'NewsController@showCategory');
+
