@@ -71,8 +71,9 @@ class NewsController extends Controller
         foreach ($this->news as $new) {
             if ($new['id'] == $id) {
                 return view('newsOne', compact('new'));
-            } else redirect(route('news'));
+            }
         }
+        redirect(route('news.all'));
     }
 
     public function allNews()

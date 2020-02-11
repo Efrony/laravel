@@ -8,10 +8,10 @@
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <title>@yield('title')</title>
 <body>
-<a href="/">Главная</a>
-<a href="/admin">Админка</a>
-<a href="/news/categories">Категории новостей</a>
-<a href="/news">Все новости</a>
+<a href="{{route('home')}}">Главная</a>
+<a href="{{route('admin')}}">Админка</a>
+<a href="{{route('news.categories')}}">Категории новостей</a>
+<a href="{{route('news.all')}}">Все новости</a>
 
     @yield('content')
 

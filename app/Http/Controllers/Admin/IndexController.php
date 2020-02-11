@@ -7,5 +7,9 @@ use App\Http\Controllers\Controller;
 
 class IndexController extends Controller
 {
-    //
+    public function admin()
+    {
+        $title = 'Админка';
+        return view('admin', compact('title') );
+    }
 }
