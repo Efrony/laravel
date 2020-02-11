@@ -11,3 +11,7 @@ Homestead.yaml
 npm-debug.log
 yarn-error.log
 *.json
+/config/app.php
+/.idea/
+.composer.phar
+.php.xml
