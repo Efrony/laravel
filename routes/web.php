@@ -12,7 +12,7 @@
 */
 
 
-Route::get('/', 'HomeController@home')->name('home');
+Route::get('/', 'IndexController@home')->name('index');
 Route::get('/admin', 'Admin\IndexController@admin')->name('admin');
 
 
@@ -31,3 +31,7 @@ Route::group([
 //Route::get('/news/categories', 'NewsController@categoriesNews')->name('categories');
 //Route::get('/news/categories/{category}', 'NewsController@showCategory')->name('category');
 
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

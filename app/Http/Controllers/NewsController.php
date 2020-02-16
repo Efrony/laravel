@@ -14,6 +14,18 @@ class NewsController extends Controller
         ], [
             'title' => 'Политика',
             'category' =>  'politics'
+        ], [
+            'title' => 'Наука и технологии‎',
+            'category' =>  'politics'
+        ], [
+            'title' => 'Культура‎ ',
+            'category' =>  'politics'
+        ], [
+            'title' => 'Экономика‎ ',
+            'category' =>  'politics'
+        ], [
+            'title' => 'Религия‎',
+            'category' =>  'politics'
         ]
 
     ];
@@ -44,9 +56,10 @@ class NewsController extends Controller
     public function categoriesNews()
     {
         $title = 'Категории новостей';
-        return view('newsCategories')->with([
+        return view('news.newsCategories')->with([
             'title' => $title,
             'categories' => $this->categories,
+            'news' => $this->news,
         ]);
     }
 
@@ -60,9 +73,10 @@ class NewsController extends Controller
             }
          }
 
-        return view('news')->with([
+        return view('news.news')->with([
             'title' => $title,
             'news' => $newsByCategory,
+            'categories' => $this->categories,
         ]);
     }
 
@@ -70,7 +84,11 @@ class NewsController extends Controller
     {
         foreach ($this->news as $new) {
             if ($new['id'] == $id) {
-                return view('newsOne', compact('new'));
+                return view('news.newsOne')->with([
+                    'title' => $new['title'],
+                    'new' => $new,
+                    'categories' => $this->categories,
+                ]);
             }
         }
         redirect(route('news.all'));
@@ -79,9 +97,10 @@ class NewsController extends Controller
     public function allNews()
     {
         $title = 'Все новости';
-        return view('news')->with([
+        return view('news.news')->with([
             'title' => $title,
             'news' => $this->news,
+            'categories' => $this->categories,
         ]);
 
         //        return view('news', compact('title', 'news'));
