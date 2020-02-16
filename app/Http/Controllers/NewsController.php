@@ -9,22 +9,28 @@ class NewsController extends Controller
 {
     private $categories = [
         [
+            'id' => 1,
             'title' => 'Спорт',
             'category' => 'sport'
         ], [
+            'id' => 2,
             'title' => 'Политика',
             'category' =>  'politics'
         ], [
-            'title' => 'Наука и технологии‎',
+            'id' => 3,
+            'title' => 'Наука и технологии',
             'category' =>  'politics'
         ], [
-            'title' => 'Культура‎ ',
+            'id' => 4,
+            'title' => 'Культура',
             'category' =>  'politics'
         ], [
-            'title' => 'Экономика‎ ',
+            'id' => 5,
+            'title' => 'Экономика',
             'category' =>  'politics'
         ], [
-            'title' => 'Религия‎',
+            'id' => 6,
+            'title' => 'Религия',
             'category' =>  'politics'
         ]
 
@@ -32,43 +38,66 @@ class NewsController extends Controller
     private $news = [
         [
             'id' => 1,
-            'category' => 'sport',
+            'category' => 1,
             'title' => 'Новость 1',
             'text' => 'Текст первой новости про спорт',
         ], [
             'id' => 2,
-            'category' => 'sport',
+            'category' => 1,
             'title' => 'Новость 2',
             'text' => 'Текст второй новости про спорт',
         ], [
             'id' => 3,
-            'category' => 'politics',
+            'category' => 1,
             'title' => 'Новость 3',
             'text' => 'Текст третей новости про политику',
         ], [
             'id' => 4,
-            'category' => 'politics',
+            'category' => 2,
             'title' => 'Новость 4',
             'text' => 'Текст четвёртой новости про политику',
         ],
+        [
+            'id' => 5,
+            'category' => 2,
+            'title' => 'Новость 5',
+            'text' => 'Текст пятой новости про политику',
+        ],
+        [
+            'id' => 6,
+            'category' => 2,
+            'title' => 'Новость 6',
+            'text' => 'Текст шестой новости про политику',
+        ],
+        [
+            'id' => 7,
+            'category' => 2,
+            'title' => 'Новость 7',
+            'text' => 'Текст седьмой новости про политику',
+        ],
+        [
+            'id' => 8,
+            'category' => 2,
+            'title' => 'Новость 8',
+            'text' => 'Текст восьмой новости про политику',
+        ],
     ];
 
-    public function categoriesNews()
-    {
-        $title = 'Категории новостей';
-        return view('news.newsCategories')->with([
-            'title' => $title,
-            'categories' => $this->categories,
-            'news' => $this->news,
-        ]);
-    }
 
-    public function showCategory($category)
+    public function showCategory($id)
     {
-        $title = "Новости в категории $category";
+        foreach ($this->categories as $oneCategory) {
+            if ($oneCategory['id'] == $id) {
+                $category = $oneCategory;
+                break;
+            }
+        }
+
+        $title = 'Новости в категории ' . $category['title'];
         $newsByCategory = [];
+
         foreach ($this->news as $new) {
-            if ($new['category'] == $category) {
+            if ($new['category'] == $category['id']) {
                 $newsByCategory[] = $new;
             }
          }
@@ -102,8 +131,25 @@ class NewsController extends Controller
             'news' => $this->news,
             'categories' => $this->categories,
         ]);
-
-        //        return view('news', compact('title', 'news'));
-
     }
+
+    public function addNews()
+    {
+        $title = 'Добавить новость';
+        return view('news.newsAdd')->with([
+            'title' => $title,
+            'categories' => $this->categories,
+        ]);
+    }
+
+    //
+//    public function categoriesNews()
+//    {
+//        $title = 'Категории новостей';
+//        return view('news.newsCategories')->with([
+//            'title' => $title,
+//            'categories' => $this->categories,
+//            'news' => $this->news,
+//        ]);
+//    }
 }

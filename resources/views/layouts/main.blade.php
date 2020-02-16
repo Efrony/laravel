@@ -22,14 +22,11 @@
     <div class="collapse navbar-collapse" id="navbarNavDropdown" style="display: flex; justify-content: space-between;">
         <ul class="navbar-nav">
 
-            <li class="nav-item @yield('active_categories')">
-                <a class="nav-link" href="{{ route('news.categories') }}">Категории новостей <span class="sr-only">(current)</span></a>
-            </li>
             <li class="nav-item @yield('active_all')">
-                <a class="nav-link" href="{{ route('news.all') }}">Все новости</a>
+                <a class="nav-link" href="{{ route('news.all') }}">Новости</a>
             </li>
-            <li class="nav-item ">
-                <a class="nav-link" href="{{ route('admin') }}">Добавить новость</a>
+            <li class="nav-item @yield('active_add')">
+                <a class="nav-link" href="{{ route('news.add') }}">Добавить новость</a>
             </li>
             <li class="nav-item @yield('active_admin')">
                 <a class="nav-link" href="{{ route('admin') }}">Администрирование</a>

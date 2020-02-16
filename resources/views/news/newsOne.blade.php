@@ -4,9 +4,11 @@
     {{ $new['title'] }}
 @endsection
 
-{{--@include('news.newsCategories')--}}
 
 @section('content')
-         <h1>{{ $new['title'] }}</h1>
-         <p> {{ $new['text'] }}</p>
+    <div class="container">
+        <h1>{{ $new['title'] }}</h1>
+        <a  class="btn btn-primary" href="{{ route('news.all') }}">Назад </a>
+        <p> {{ $new['text'] }}</p>
+    </div>
 @endsection
