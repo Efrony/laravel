@@ -2,7 +2,7 @@
 
 @section('content')
 
-        <a  class="btn btn-primary" href="{{ route('news.all') }}">Назад </a>
+        <a  class="btn btn-primary mb-4" href="{{ route('news.all') }}">Назад </a>
 
         @if(!$new['private'])
             <p> {{ $new['text'] }}</p>

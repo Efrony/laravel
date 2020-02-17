@@ -15,7 +15,7 @@
 
     <div class="container">
         @isset($title)
-            <h1>{{ $title }}</h1>
+            <h1 class="mt-5 mb-4">{{ $title }}</h1>
         @endisset
 
         @yield('content')
