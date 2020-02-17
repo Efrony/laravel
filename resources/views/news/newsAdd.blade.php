@@ -6,8 +6,6 @@
 
 
 @section('content')
-    <div class="container">
-        <h1>{{ $title }}</h1>
         <form>
             @csrf
             <div class="form-group">
@@ -36,6 +34,5 @@
 
             <button type="button" class="btn btn-primary btn-lg btn-block" style="margin-top: 30px" >Разместить новость</button>
         </form>
-    </div>
 @endsection
 

@@ -5,9 +5,6 @@
 @endsection
 
 @section('content')
-    <div class="container">
-        <h1>{{ $title }}</h1>
-
         @include('widgets.newsCategories')
 
         <div style="display: flex; flex-wrap: wrap; justify-content: space-around; ">
@@ -35,5 +32,4 @@
                 <h2>Новостей нет</h2>
             @endforelse
         </div>
-    </div>
 @endsection
