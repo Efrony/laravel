@@ -10,12 +10,17 @@
             <li class="nav-item @yield('active_all')">
                 <a class="nav-link" href="{{ route('news.all') }}">Новости</a>
             </li>
-            <li class="nav-item @yield('active_add')">
-                <a class="nav-link" href="{{ route('news.add') }}">Добавить новость</a>
+
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle @yield('active_admin')" href="{{ route('admin') }}" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Администрирование
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                    <a class="dropdown-item" href="{{ route('admin') }}">Администрирование</a>
+                    <a class="dropdown-item" href="{{ route('news.add') }}">Добавить новость</a>
+                </div>
             </li>
-            <li class="nav-item @yield('active_admin')">
-                <a class="nav-link" href="{{ route('admin') }}">Администрирование</a>
-            </li>
+
         </ul>
 
         <!-- Right Side Of Navbar -->

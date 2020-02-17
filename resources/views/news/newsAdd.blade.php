@@ -1,6 +1,6 @@
 @extends('layouts.main')
 
-@section('active_add')
+@section('active_admin')
     {{ 'active' }}
 @endsection
 
