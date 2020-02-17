@@ -28,7 +28,13 @@
                 <label for="exampleFormControlTextarea1">Описание новости</label>
                 <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
             </div>
-            <button type="button" class="btn btn-primary btn-lg btn-block">Разместить новость</button>
+
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="private">
+                <label class="form-check-label" for="inlineCheckbox1">Новость видна только зарегистрированным пользователям</label>
+            </div>
+
+            <button type="button" class="btn btn-primary btn-lg btn-block" style="margin-top: 30px" >Разместить новость</button>
         </form>
     </div>
 @endsection

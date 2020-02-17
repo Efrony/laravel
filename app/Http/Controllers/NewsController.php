@@ -21,10 +21,10 @@ class NewsController extends Controller
     }
 
 
-    public function showCategory($id)
+    public function showCategory($category)
     {
         foreach ($this->getCategories() as $oneCategory) {
-            if ($oneCategory['id'] == $id) {
+            if ($oneCategory['category'] == $category) {
                 $category = $oneCategory;
                 break;
             }

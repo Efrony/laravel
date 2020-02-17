@@ -32,7 +32,5 @@ Route::group([
 //Route::get('/news/categories', 'NewsController@categoriesNews')->name('categories');
 //Route::get('/news/categories/{category}', 'NewsController@showCategory')->name('category');
 
-
 Auth::routes();
-
 Route::get('/home', 'HomeController@index')->name('home');
