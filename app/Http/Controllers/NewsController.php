@@ -8,9 +8,6 @@ use Faker\Provider\Lorem;
 
 class NewsController extends Controller
 {
-    private $categories;
-    private $news;
-
     public function getNews()
     {
         return (new News())->getNews();
@@ -46,6 +43,7 @@ class NewsController extends Controller
         ]);
     }
 
+
     public function oneNews($id)
     {
         foreach ($this->getNews() as $new) {
@@ -57,8 +55,9 @@ class NewsController extends Controller
                 ]);
             }
         }
-        redirect(route('news.all'));
+        return redirect(route('news.all'));
     }
+
 
     public function allNews()
     {
@@ -70,13 +69,20 @@ class NewsController extends Controller
         ]);
     }
 
-    public function addNews()
+
+    public function createNews()
     {
         $title = 'Добавить новость';
-        return view('news.newsAdd')->with([
+        return view('news.newsCreate')->with([
             'title' => $title,
             'categories' => $this->getCategories(),
         ]);
+    }
+
+
+    public function addNews()
+    {
+        return redirect(route('news.all'));
     }
 
     //

@@ -22,7 +22,8 @@ Route::group([
 ], function () {
     Route::get('/', 'NewsController@allNews')->name('all');
     Route::get('/show/{id}', 'NewsController@oneNews')->name('one');
-    Route::get('/add', 'NewsController@addNews')->name('add');
+    Route::get('/create', 'NewsController@createNews')->name('create');
+    Route::post('/add', 'NewsController@addNews')->name('add');
     Route::get('/categories/{category}', 'NewsController@showCategory')->name('category');
     //    Route::get('/categories', 'NewsController@categoriesNews')->name('categories');
 });

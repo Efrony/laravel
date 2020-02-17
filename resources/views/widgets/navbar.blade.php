@@ -17,7 +17,7 @@
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                     <a class="dropdown-item" href="{{ route('admin') }}">Администрирование</a>
-                    <a class="dropdown-item" href="{{ route('news.add') }}">Добавить новость</a>
+                    <a class="dropdown-item" href="{{ route('news.create') }}">Добавить новость</a>
                 </div>
             </li>
 

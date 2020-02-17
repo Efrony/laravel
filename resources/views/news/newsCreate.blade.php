@@ -6,7 +6,7 @@
 
 
 @section('content')
-        <form>
+        <form method="POST" action="{{ route('news.add') }}">
             @csrf
             <div class="form-group">
                 <label for="exampleFormControlSelect1">Выберите категорию</label>
@@ -29,10 +29,10 @@
 
             <div class="form-check form-check-inline">
                 <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="private">
-                <label class="form-check-label" for="inlineCheckbox1">Новость видна только зарегистрированным пользователям</label>
+                <label class="form-check-label" for="inlineCheckbox1">Новость видна только авторизованным пользователям</label>
             </div>
 
-            <button type="button" class="btn btn-primary btn-lg btn-block" style="margin-top: 30px" >Разместить новость</button>
+            <button type="submit" class="btn btn-primary btn-lg btn-block" style="margin-top: 30px" >Разместить новость</button>
         </form>
 @endsection
 
