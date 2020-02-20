@@ -20,13 +20,22 @@
             </div>
 
             <div class="form-group">
-                <label for="exampleFormControlTextarea1">Заголовок</label>
-                <input value="{{ old('title') }}" name="title" class="form-control" type="text" placeholder="Заголовок">
+                <label for="exampleFormControlTextarea1">
+                    @if(old('title') == 'empty') <span style="color: red">Поле "Заголовок" обязательно для заполнения</span>
+                        @else Заголовок
+                    @endif
+                </label>
+                <input value="@if(old('title') != 'empty'){{ old('title') }} @endif" name="title" class="form-control" type="text" placeholder="Заголовок">
             </div>
 
             <div class="form-group">
-                <label for="exampleFormControlTextarea1">Описание новости</label>
-                <textarea  name="text" class="form-control" id="exampleFormControlTextarea1" rows="3">{{ old('text') }}</textarea>
+                <label for="exampleFormControlTextarea1">
+                    @if(old('text') == 'empty') <span style="color: red">Поле "Описание новости" обязательно для заполнения</span>
+                        @else Описание новости
+                    @endif
+                </label>
+                <textarea  name="text" class="form-control" id="exampleFormControlTextarea1" rows="3"
+                >@if(old('text') != 'empty'){{ old('text') }} @endif</textarea>
             </div>
 
             <div class="form-check form-check-inline">

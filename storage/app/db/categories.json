@@ -1,6 +1,4 @@
-{
-"categories":[
-{
+[{
 "id":1,
 "title":"Спорт",
 "category":"sport"
@@ -10,7 +8,7 @@
 "category":"politics"
 },{
 "id":3,
-"title":"Наукаитехнологии",
+"title":"Наука и технологии",
 "category":"science"
 },{
 "id":4,
@@ -25,4 +23,3 @@
 "title":"Религия",
 "category":"religion"
 }]
-}

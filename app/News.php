@@ -12,7 +12,7 @@ class News extends Model
         $db = Storage::disk('local');
         $contents = $db->get('db/news.json');
         $contents = json_decode($contents, true);
-        return $contents['news'];
+        return $contents;
     }
 
     public function getCategories()
@@ -20,6 +20,6 @@ class News extends Model
         $db = Storage::disk('local');
         $contents = $db->get('db/categories.json');
         $contents = json_decode($contents, true);
-        return $contents['categories'];
+        return $contents;
     }
 }
