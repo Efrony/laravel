@@ -3,88 +3,96 @@
 namespace App\Http\Controllers;
 
 
+use App\News;
 use Faker\Provider\Lorem;
 
 class NewsController extends Controller
 {
-    private $categories = [
-        [
-            'title' => 'Спорт',
-            'category' => 'sport'
-        ], [
-            'title' => 'Политика',
-            'category' =>  'politics'
-        ]
-
-    ];
-    private $news = [
-        [
-            'id' => 1,
-            'category' => 'sport',
-            'title' => 'Новость 1',
-            'text' => 'Текст первой новости про спорт',
-        ], [
-            'id' => 2,
-            'category' => 'sport',
-            'title' => 'Новость 2',
-            'text' => 'Текст второй новости про спорт',
-        ], [
-            'id' => 3,
-            'category' => 'politics',
-            'title' => 'Новость 3',
-            'text' => 'Текст третей новости про политику',
-        ], [
-            'id' => 4,
-            'category' => 'politics',
-            'title' => 'Новость 4',
-            'text' => 'Текст четвёртой новости про политику',
-        ],
-    ];
-
-    public function categoriesNews()
+    public function getNews()
     {
-        $title = 'Категории новостей';
-        return view('newsCategories')->with([
-            'title' => $title,
-            'categories' => $this->categories,
-        ]);
+        return (new News())->getNews();
     }
+    public function getCategories()
+    {
+        return(new News())->getCategories();
+    }
+
 
     public function showCategory($category)
     {
-        $title = "Новости в категории $category";
+        foreach ($this->getCategories() as $oneCategory) {
+            if ($oneCategory['category'] == $category) {
+                $category = $oneCategory;
+                break;
+            }
+        }
+
+        $title = 'Новости в категории ' . $category['title'];
         $newsByCategory = [];
-        foreach ($this->news as $new) {
-            if ($new['category'] == $category) {
+
+        foreach ($this->getNews() as $new) {
+            if ($new['category'] == $category['id']) {
                 $newsByCategory[] = $new;
             }
          }
 
-        return view('news')->with([
+        return view('news.news')->with([
             'title' => $title,
             'news' => $newsByCategory,
+            'categories' => $this->getCategories(),
         ]);
     }
 
+
     public function oneNews($id)
     {
-        foreach ($this->news as $new) {
+        foreach ($this->getNews() as $new) {
             if ($new['id'] == $id) {
-                return view('newsOne', compact('new'));
+                return view('news.newsOne')->with([
+                    'title' => $new['title'],
+                    'new' => $new,
+                    'categories' => $this->getCategories(),
+                ]);
             }
         }
-        redirect(route('news.all'));
+        return redirect(route('news.all'));
     }
+
 
     public function allNews()
     {
         $title = 'Все новости';
-        return view('news')->with([
+        return view('news.news')->with([
             'title' => $title,
-            'news' => $this->news,
+            'news' => $this->getNews(),
+            'categories' => $this->getCategories(),
         ]);
-
-        //        return view('news', compact('title', 'news'));
-
     }
+
+
+    public function createNews()
+    {
+        $title = 'Добавить новость';
+        return view('news.newsCreate')->with([
+            'title' => $title,
+            'categories' => $this->getCategories(),
+        ]);
+    }
+
+
+    public function addNews()
+    {
+        return redirect(route('news.all'));
+    }
+
+    //
+//    public function categoriesNews()
+//    {
+//        $title = 'Категории новостей';
+//        return view('news.newsCategories')->with([
+//            'title' => $title,
+//            'categories' => $this->categories,
+//            'news' => $this->news,
+//        ]);
+//    }
 }

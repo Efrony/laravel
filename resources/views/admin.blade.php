@@ -1,9 +1,10 @@
 @extends('layouts.main')
 
-@section('title')
-    {{ $title }}
+@section('active_admin')
+    {{ 'active' }}
 @endsection
 
 @section('content')
-    <h1>{{ $title }}</h1>
+
+
 @endsection
