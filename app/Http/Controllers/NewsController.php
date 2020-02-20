@@ -4,10 +4,16 @@ namespace App\Http\Controllers;
 
 
 use App\News;
-use Faker\Provider\Lorem;
+use \Illuminate\Http\Request;
+use \Illuminate\Support\Facades\Storage;
 
 class NewsController extends Controller
 {
+//    private  $request;
+//    public function __construct(Request $request)
+//    {
+//        $this->request = $request;
+//    }
     public function getNews()
     {
         return (new News())->getNews();
@@ -80,9 +86,17 @@ class NewsController extends Controller
     }
 
 
-    public function addNews()
+    public function addNews(Request $request)
     {
-        return redirect(route('news.all'));
+        if ($request->isMethod('local')) {
+            $request->flash();
+//            dd($request->except('_token'));
+         Storage::get();
+            return redirect(route('news.create'));
+        }
+
+
+
     }
 
     //

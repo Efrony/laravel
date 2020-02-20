@@ -10,25 +10,28 @@
             @csrf
             <div class="form-group">
                 <label for="exampleFormControlSelect1">Выберите категорию</label>
-                <select class="form-control" id="exampleFormControlSelect1">
+                <select name="category" class="form-control" id="exampleFormControlSelect1">
                         @foreach ($categories as $category)
-                            <option>{{ $category['title'] }}</option>
+                            <option value="{{ $category['id'] }}" @if($category['id'] == old('$category')) selected @endif>
+                                {{ $category['title'] }}
+                            </option>
                         @endforeach
                 </select>
             </div>
 
             <div class="form-group">
                 <label for="exampleFormControlTextarea1">Заголовок</label>
-                <input class="form-control" type="text" placeholder="Заголовок">
+                <input value="{{ old('title') }}" name="title" class="form-control" type="text" placeholder="Заголовок">
             </div>
 
             <div class="form-group">
                 <label for="exampleFormControlTextarea1">Описание новости</label>
-                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                <textarea  name="text" class="form-control" id="exampleFormControlTextarea1" rows="3">{{ old('text') }}</textarea>
             </div>
 
             <div class="form-check form-check-inline">
-                <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="private">
+                <input name="private" class="form-check-input" type="checkbox" id="inlineCheckbox1" value="1"
+                       @if(old('private') == 1) checked @endif>
                 <label class="form-check-label" for="inlineCheckbox1">Новость видна только авторизованным пользователям</label>
             </div>
 
