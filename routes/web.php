@@ -13,7 +13,20 @@
 
 
 Route::get('/', 'IndexController@home')->name('index');
-Route::get('/admin', 'Admin\IndexController@admin')->name('admin');
+Auth::routes();
+Route::get('/home', 'HomeController@index')->name('home');
+
+
+
+Route::group([
+    'prefix' => 'admin',
+    'namespace' => 'Admin',
+    'as' => 'admin.',
+], function () {
+    Route::get('/', 'AdminIndexController@admin')->name('index');
+    Route::get('/create', 'AdminNewsController@createNews')->name('create');
+    Route::match(['post', 'get'], '/add', 'AdminNewsController@addNews')->name('add');
+});
 
 
 Route::group([
@@ -22,11 +35,5 @@ Route::group([
 ], function () {
     Route::get('/', 'NewsController@allNews')->name('all');
     Route::get('/show/{id}', 'NewsController@oneNews')->name('one');
-    Route::get('/create', 'NewsController@createNews')->name('create');
-    Route::match(['post', 'get'], '/add', 'NewsController@addNews')->name('add');
     Route::get('/categories/{category}', 'NewsController@showCategory')->name('category');
 });
-
-
-Auth::routes();
-Route::get('/home', 'HomeController@index')->name('home');

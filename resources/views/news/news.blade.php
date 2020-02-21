@@ -7,9 +7,9 @@
 @section('content')
         @include('widgets.newsCategories')
 
-        <div style="display: flex; flex-wrap: wrap; justify-content: space-around; ">
+        <div class="flex-wrap-custom">
             @forelse($news as $new)
-                <div class="card" style="width: 23%; margin-top: 30px; ">
+                <div class="card cards-news-custom">
                     @if(!$new['private'])
                             <a href="{{ route('news.one', ['id' => $new['id']]) }}">
                                 <img class="card-img-top" src="{{ asset('img/280.svg') }}" alt="Card image cap">

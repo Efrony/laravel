@@ -3,23 +3,8 @@
 namespace App\Http\Controllers;
 
 
-use App\News;
-use \Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
-
-class NewsController extends Controller
+class NewsController extends DataController
 {
-    private  $request;
-    private  $news;
-    private  $categories;
-
-    public function __construct(Request $request, News $news)
-    {
-        $this->request = $request;
-        $this->news = $news->getNews();
-        $this->categories = $news->getCategories();
-    }
-
 
     public function showCategory($category)
     {
@@ -70,45 +55,5 @@ class NewsController extends Controller
             'news' => $this->news,
             'categories' => $this->categories,
         ]);
-    }
-
-
-    public function createNews()
-    {
-        $title = 'Добавить новость';
-        return view('news.newsCreate')->with([
-            'title' => $title,
-            'categories' => $this->categories,
-        ]);
-    }
-
-
-    public function addNews()
-    {
-        if ($this->request->isMethod('post')) {
-            $this->request->flash();
-            $validFields = true;
-            $fields = $this->request->except('_token');
-            $createdNews = [];
-
-            foreach ($fields as $field => $value) {
-                if (!$value) {
-                    $this->request->session()->put('_old_input.' . $field, 'empty');
-                    $validFields = false;
-                    continue;
-                }
-                $createdNews[$field] = $value;
-            }
-
-            if (!$validFields) {
-                return redirect(route('news.create'));
-            }
-
-            if (!isset($createdNews['private'])) $createdNews['private'] = 0;
-            $createdNews['id'] = end($this->news)['id'] + 1;
-            $this->news[] = $createdNews;
-            Storage::disk('local')->put('db/news.json', json_encode($this->news, JSON_UNESCAPED_UNICODE));
-            return redirect(route('news.all'));
-        }
     }
 }

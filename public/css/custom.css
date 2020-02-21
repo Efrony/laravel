@@ -1,0 +1,10 @@
+.flex-wrap-custom {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.cards-news-custom {
+    width: 23%;
+    margin-top: 30px;
+}

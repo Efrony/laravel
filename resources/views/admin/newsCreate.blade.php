@@ -6,7 +6,7 @@
 
 
 @section('content')
-        <form method="POST" action="{{ route('news.add') }}">
+        <form method="POST" action="{{ route('admin.add') }}">
             @csrf
             <div class="form-group">
                 <label for="exampleFormControlSelect1">Выберите категорию</label>

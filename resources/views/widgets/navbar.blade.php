@@ -12,12 +12,12 @@
             </li>
 
             <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle @yield('active_admin')" href="{{ route('admin') }}" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <a class="nav-link dropdown-toggle @yield('active_admin')" href="{{ route('admin.index') }}" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Администрирование
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                    <a class="dropdown-item" href="{{ route('admin') }}">Администрирование</a>
-                    <a class="dropdown-item" href="{{ route('news.create') }}">Добавить новость</a>
+                    <a class="dropdown-item" href="{{ route('admin.index') }}">Администрирование</a>
+                    <a class="dropdown-item" href="{{ route('admin.create') }}">Добавить новость</a>
                 </div>
             </li>
 
