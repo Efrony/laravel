@@ -10,6 +10,6 @@ class AdminIndexController extends DataController
     public function admin()
     {
         $title = 'Админка';
-        return view('admin', compact('title') );
+        return view('admin.admin', compact('title') );
     }
 }
