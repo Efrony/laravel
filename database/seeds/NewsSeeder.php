@@ -12,14 +12,7 @@ class NewsSeeder extends Seeder
     public function run()
     {
         DB::table('news')->insert($this->getData());
-        DB::table('categories')->insert($this->getData1());
-        /**
-         *  По непонятным причинам seeder запускается только из этого файла.
-         *  При создании других сидеров постоянно вылетает сообщение типа Class CategoriesSeeder does not exist
-         *  хотя если взять код из другого сидера и вставить в этот файл, то он запускается.
-         *  Пробовал создавать с разными именами, всреано глючит
-         *  Пако заполнение других таблиц сделал в этом сидере
-         */
+
     }
 
     private function getData()
@@ -37,12 +30,5 @@ class NewsSeeder extends Seeder
         }
 
         return $data;
-    }
-
-    private function getData1()
-    {
-        $date = Storage::disk('local')->get('db/categories.json');
-        $date = json_decode($date, true);
-        return $date;
     }
 }
