@@ -18,5 +18,6 @@ class DataController extends Controller
         $this->request = $request;
         $this->news = $news->getNews();
         $this->categories = $news->getCategories();
+
     }
 }

@@ -10,19 +10,19 @@
         <div class="flex-wrap-custom">
             @forelse($news as $new)
                 <div class="card cards-news-custom">
-                    @if(!$new['private'])
-                            <a href="{{ route('news.one', ['id' => $new['id']]) }}">
-                                <img class="card-img-top" src="{{ asset('img/280.svg') }}" alt="Card image cap">
+                    @if(!$new->private)
+                            <a href="{{ route('news.one', ['id' => $new->id]) }}">
+                                <img class="card-img-top" src="{{ asset($new->image) }}" alt="Card image cap">
                                 <div class="card-body">
-                                    <h5 class="card-title">{{ $new['title'] }} </h5>
-                                    <p class="card-text">{{ $new['text'] }}</p>
+                                    <h5 class="card-title">{{ $new->title }} </h5>
+                                    <p class="card-text-custom">{{ $new->text }}</p>
                                     <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
                                 </div>
                             </a>
                     @else
-                                <img class="card-img-top" src="{{ asset('img/280.svg') }}" alt="Card image cap">
+                                <img class="card-img-top" src="{{ asset($new->image) }}" alt="Card image cap">
                                 <div class="card-body">
-                                    <h5 class="card-title">{{ $new['title'] }} </h5>
+                                    <h5 class="card-title">{{ $new->title }} </h5>
                                     <p> <b>Для просмотра этой новости необходимо авторизоваться</b></p>
                                     <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
                                 </div>

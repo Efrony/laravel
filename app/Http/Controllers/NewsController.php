@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 
+use App\News;
+
 class NewsController extends DataController
 {
 
@@ -22,7 +24,7 @@ class NewsController extends DataController
             if ($new['category'] == $category['id']) {
                 $newsByCategory[] = $new;
             }
-         }
+        }
 
         return view('news.news')->with([
             'title' => $title,
@@ -34,16 +36,16 @@ class NewsController extends DataController
 
     public function oneNews($id)
     {
-        foreach ($this->news as $new) {
-            if ($new['id'] == $id) {
-                return view('news.newsOne')->with([
-                    'title' => $new['title'],
-                    'new' => $new,
-                    'categories' => $this->categories,
-                ]);
-            }
+        $oneNews = (new News())->getOneNews($id);
+        if (empty($oneNews)) {
+            return redirect(route('news.all'));
         }
-        return redirect(route('news.all'));
+
+        return view('news.newsOne')->with([
+            'title' => $oneNews->title,
+            'oneNews' => $oneNews,
+            'categories' => $this->categories,
+        ]);
     }
 
 
