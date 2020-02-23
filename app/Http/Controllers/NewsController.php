@@ -4,24 +4,19 @@ namespace App\Http\Controllers;
 
 
 use App\News;
+use Illuminate\Support\Facades\Storage;
 
 class NewsController extends DataController
 {
 
-    public function showCategory($category)
+    public function showCategory($nameCategory)
     {
-        foreach ($this->categories as $oneCategory) {
-            if ($oneCategory['category'] == $category) {
-                $category = $oneCategory;
-                break;
-            }
-        }
-
-        $title = 'Новости в категории ' . $category['title'];
+        $oneCategory = (new News())->getOneCategoryByName($nameCategory);
+        $title = 'Новости в категории ' . $oneCategory->title;
         $newsByCategory = [];
 
         foreach ($this->news as $new) {
-            if ($new['category'] == $category['id']) {
+            if ($new->category == $oneCategory->id) {
                 $newsByCategory[] = $new;
             }
         }

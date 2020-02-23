@@ -28,9 +28,19 @@ class News extends Model
 
     public function getCategories()
     {
-        $db = Storage::disk('local');
-        $contents = $db->get('db/categories.json');
-        $contents = json_decode($contents, true);
-        return $contents;
+        $categories = DB::table('categories')->get();
+        return $categories;
+    }
+
+    public function getOneCategory($id)
+    {
+        $oneCategory = DB::table('categories')->find($id);
+        return $oneCategory;
+    }
+
+    public function getOneCategoryByName($name)
+    {
+        $oneCategory = DB::table('categories')->where('name', $name)->first();
+        return $oneCategory;
     }
 }

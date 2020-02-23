@@ -15,19 +15,12 @@ class CreateCategoriesTable extends Migration
     {
         Schema::create('categories', function (Blueprint $table) {
             $table->bigIncrements('id')->unsigned();
-            $table->string('title')->comment('Заголовок новости');
-            $table->text('text')->comment('Содержание новости');
-            $table->boolean('private')
-                ->default(false)
-                ->comment('Приватная новость');
-            $table->string('image')
-                ->default('img/280.svg')
-                ->comment('Путь к изображению');
-            $table->integer('category')
+            $table->string('title')->comment('Заголовок категории');
+            $table->string('name')
                 ->default(0)
                 ->comment('Категория');
-            $table->bigIncrements('id');
-            $table->timestamps();
+            $table->timestamp('created_at')->useCurrent();
+            $table->timestamp('updated_at')->useCurrent();
         });
     }
 
