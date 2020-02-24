@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 
 use App\Http\Controllers\DataController;
-use Illuminate\Support\Facades\Storage;
+use App\News;
 
 class AdminNewsController extends DataController
 {
@@ -19,30 +19,15 @@ class AdminNewsController extends DataController
 
     public function addNews()
     {
-        if ($this->request->isMethod('post')) {
-            $this->request->flash();
-            $validFields = true;
-            $fields = $this->request->except('_token');
-            $createdNews = [];
-
-            foreach ($fields as $field => $value) {
-                if (!$value) {
-                    $this->request->session()->put('_old_input.' . $field, 'empty');
-                    $validFields = false;
-                    continue;
-                }
-                $createdNews[$field] = $value;
+            if ($id = (new News())->addNews($this->request)) {
+                return redirect(route('news.one', ['id' => $id]))->with('alert', [
+                    'type' => 'success',
+                    'message' => 'Новость успешно создана!',
+                ]);
             }
-
-            if (!$validFields) {
-                return redirect(route('admin.create'));
-            }
-
-            if (!isset($createdNews['private'])) $createdNews['private'] = 0;
-            $createdNews['id'] = end($this->news)['id'] + 1;
-            $this->news[] = $createdNews;
-            Storage::disk('local')->put('db/news.json', json_encode($this->news, JSON_UNESCAPED_UNICODE));
-            return redirect(route('news.all'));
-        }
+            return redirect(route('admin.create'))->with('alert', [
+                'type' => 'danger',
+                'message' => 'Заполните все необходимые поля!',
+            ]);
     }
 }

@@ -19,21 +19,21 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 
 Route::group([
-    'prefix' => 'admin',
-    'namespace' => 'Admin',
-    'as' => 'admin.',
-], function () {
-    Route::get('/', 'AdminIndexController@admin')->name('index');
-    Route::get('/create', 'AdminNewsController@createNews')->name('create');
-    Route::match(['post', 'get'], '/add', 'AdminNewsController@addNews')->name('add');
+        'prefix' => 'admin',
+        'namespace' => 'Admin',
+        'as' => 'admin.',
+    ], function () {
+        Route::get('/', 'AdminIndexController@admin')->name('index');
+        Route::get('/create', 'AdminNewsController@createNews')->name('create');
+        Route::match(['post', 'get'], '/add', 'AdminNewsController@addNews')->name('add');
 });
 
 
 Route::group([
-    'prefix' => 'news',
-    'as' => 'news.',
-], function () {
-    Route::get('/', 'NewsController@allNews')->name('all');
-    Route::get('/show/{id}', 'NewsController@oneNews')->name('one');
-    Route::get('/categories/{category}', 'NewsController@showCategory')->name('category');
+        'prefix' => 'news',
+        'as' => 'news.',
+    ], function () {
+        Route::get('/', 'NewsController@allNews')->name('all');
+        Route::get('/show/{id}', 'NewsController@oneNews')->name('one');
+        Route::get('/categories/{category}', 'NewsController@showCategory')->name('category');
 });

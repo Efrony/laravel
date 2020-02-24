@@ -3,8 +3,9 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Storage;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class News extends Model
 {
@@ -42,5 +43,37 @@ class News extends Model
     {
         $oneCategory = DB::table('categories')->where('name', $name)->first();
         return $oneCategory;
+    }
+
+    public function addNews(Request $request)
+    {
+        if ($request->isMethod('post')) {
+            $request->flash();
+            $validFields = true;
+            $fields = $request->except('_token');
+            $createdNews = [];
+
+            foreach ($fields as $field => $value) {
+                if (!$value) {
+                    $request->session()->put('_old_input.' . $field, 'empty');
+                    $validFields = false;
+                    continue;
+                }
+                $createdNews[$field] = $value;
+            }
+            if (!$validFields)  return false;
+            if ($url = $this->imageForNews($request)) $createdNews['image'] = $url;
+
+            return  DB::table('news')->insertGetId($createdNews);
+        }
+    }
+
+    public function imageForNews(Request $request)
+    {
+        if ($file = $request->file('image')) {
+            $path = Storage::putFile('public', $file);
+            return Storage::url($path);
+        }
+        return false;
     }
 }

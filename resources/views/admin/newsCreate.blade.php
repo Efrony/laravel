@@ -6,14 +6,14 @@
 
 
 @section('content')
-        <form method="POST" action="{{ route('admin.add') }}">
+        <form method="POST" action="{{ route('admin.add') }}" enctype="multipart/form-data">
             @csrf
             <div class="form-group">
                 <label for="exampleFormControlSelect1">Выберите категорию</label>
                 <select name="category" class="form-control" id="exampleFormControlSelect1">
                         @foreach ($categories as $category)
-                            <option value="{{ $category['id'] }}" @if($category['id'] == old('$category')) selected @endif>
-                                {{ $category['title'] }}
+                            <option value="{{ $category->id }}" @if($category->id == old('$category')) selected @endif>
+                                {{ $category->title }}
                             </option>
                         @endforeach
                 </select>
@@ -36,6 +36,13 @@
                 </label>
                 <textarea  name="text" class="form-control" id="exampleFormControlTextarea1" rows="3"
                 >@if(old('text') != 'empty'){{ old('text') }} @endif</textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="image-for-news">
+                    Изображение для новости:
+                </label>
+                <input type="file" name="image" id="image-for-news">
             </div>
 
             <div class="form-check form-check-inline">

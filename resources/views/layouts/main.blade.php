@@ -15,6 +15,9 @@
     @include('widgets.navbar')
 
     <div class="container">
+
+        @include('widgets.alert')
+
         @isset($title)
             <h1 class="mt-5 mb-4">{{ $title }}</h1>
         @endisset

@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 
 use App\News;
-use Illuminate\Support\Facades\Storage;
 
 class NewsController extends DataController
 {
@@ -12,7 +11,6 @@ class NewsController extends DataController
     public function showCategory($nameCategory)
     {
         $oneCategory = (new News())->getOneCategoryByName($nameCategory);
-        $title = 'Новости в категории ' . $oneCategory->title;
         $newsByCategory = [];
 
         foreach ($this->news as $new) {
@@ -22,7 +20,7 @@ class NewsController extends DataController
         }
 
         return view('news.news')->with([
-            'title' => $title,
+            'title' => 'Новости в категории ' . $oneCategory->title,
             'news' => $newsByCategory,
             'categories' => $this->categories,
         ]);
