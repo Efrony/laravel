@@ -6,7 +6,7 @@
 
 
 @section('content')
-        <form method="POST" action="{{ route('admin.add') }}" enctype="multipart/form-data">
+        <form method="POST" action="@if (isset($news)) {{ route('admin.news.save') }} @else {{ route('admin.news.create') }} @endif" enctype="multipart/form-data">
             @csrf
             <div class="form-group">
                 <label for="exampleFormControlSelect1">Выберите категорию</label>
@@ -51,7 +51,10 @@
                 <label class="form-check-label" for="inlineCheckbox1">Новость видна только авторизованным пользователям</label>
             </div>
 
-            <button type="submit" class="btn btn-primary btn-lg btn-block" style="margin-top: 30px" >Разместить новость</button>
+            <button type="submit" class="btn btn-primary btn-lg btn-block" style="margin-top: 30px" >
+                @if (isset($news)) Редактировать @else Добавить @endif новость
+
+            </button>
         </form>
 @endsection
 

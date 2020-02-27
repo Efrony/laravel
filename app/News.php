@@ -9,17 +9,18 @@ use Illuminate\Support\Facades\Storage;
 
 class News extends Model
 {
-    public function getNews()
-    {
-        $news = DB::table('news')->get();
-        return $news;
-    }
+//    public function getNews()
+//    {
+//        $news = DB::table('news')->get();
+//        $news = News::all()->toArray();
+//        return $news;
+//    }
 
-    public function getOneNews($id)
-    {
-        $oneNews = DB::table('news')->find($id);
-        return $oneNews;
-    }
+//    public function getOneNews(News $oneNews)
+//    {
+////        $oneNews = DB::table('news')->find($id);
+//        return $oneNews;
+//    }
 
 //    public function getNewsByCategory($id)
 //    {
@@ -27,11 +28,11 @@ class News extends Model
 //        return $oneNews;
 //    }
 
-    public function getCategories()
-    {
-        $categories = DB::table('categories')->get();
-        return $categories;
-    }
+//    public function getCategories()
+//    {
+//        $categories = DB::table('categories')->get();
+//        return $categories;
+//    }
 
     public function getOneCategory($id)
     {
