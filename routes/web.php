@@ -25,7 +25,7 @@ Route::group([
         Route::get('/', 'AdminNewsController@all')->name('all');
         Route::match(['post', 'get'],'/create', 'AdminNewsController@create')->name('create');
         Route::get('/update/{news}', 'AdminNewsController@update')->name('update');
-        Route::get('/save/{news}', 'AdminNewsController@save')->name('save');
+        Route::post('/save/{news}', 'AdminNewsController@save')->name('save');
         Route::get('/delete/{news}', 'AdminNewsController@delete')->name('delete');
 });
 

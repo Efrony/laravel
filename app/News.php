@@ -9,30 +9,8 @@ use Illuminate\Support\Facades\Storage;
 
 class News extends Model
 {
-//    public function getNews()
-//    {
-//        $news = DB::table('news')->get();
-//        $news = News::all()->toArray();
-//        return $news;
-//    }
+    protected $fillable = ['text', 'title', 'private', 'category', 'image'];
 
-//    public function getOneNews(News $oneNews)
-//    {
-////        $oneNews = DB::table('news')->find($id);
-//        return $oneNews;
-//    }
-
-//    public function getNewsByCategory($id)
-//    {
-//        $oneNews = DB::table('news')->find($id);
-//        return $oneNews;
-//    }
-
-//    public function getCategories()
-//    {
-//        $categories = DB::table('categories')->get();
-//        return $categories;
-//    }
 
     public function getOneCategory($id)
     {
@@ -46,33 +24,36 @@ class News extends Model
         return $oneCategory;
     }
 
-    public function addNews(Request $request)
+    public static function addNews(Request $request)
     {
-        if ($request->isMethod('post')) {
-            $request->flash();
-            $validFields = true;
-            $fields = $request->except('_token');
-            $createdNews = [];
+        $request->flash();
+        $validFields = true;
+        $fields = $request->except('_token');
+        $createdNews = [];
 
-            foreach ($fields as $field => $value) {
-                if (!$value) {
-                    $request->session()->put('_old_input.' . $field, 'empty');
-                    $validFields = false;
-                    continue;
-                }
-                $createdNews[$field] = $value;
+        foreach ($fields as $field => $value) {
+            if (!$value) {
+                $request->session()->put('_old_input.' . $field, 'empty');
+                $validFields = false;
+                continue;
             }
-            if (!$validFields)  return false;
-            if ($url = $this->imageForNews($request)) $createdNews['image'] = $url;
-
-            return  DB::table('news')->insertGetId($createdNews);
+            $createdNews[$field] = $value;
         }
+
+        if (!$validFields) return false;
+        if (!isset($fields['private'])) $createdNews['private'] = 0;
+        if ($url = News::imageForNews($request)) $createdNews['image'] = $url;
+
+        $oneNews = new News();
+        $oneNews->fill($createdNews);
+        $oneNews->save();
+        return $oneNews->id;
     }
 
-    public function imageForNews(Request $request)
+    public static function imageForNews(Request $request)
     {
         if ($file = $request->file('image')) {
-            $path = Storage::putFile('public', $file);
+            $path = $file->store('public'); //Storage::putFile('public', $file);
             return Storage::url($path);
         }
         return false;

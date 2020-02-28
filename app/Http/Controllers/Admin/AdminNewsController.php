@@ -21,7 +21,7 @@ class AdminNewsController extends DataController
     public function create()
     {
         if ($this->request->isMethod('post')) {
-            if ($id = (new News())->addNews($this->request)) {
+            if ($id = News::addNews($this->request)) {
                 return redirect(route('news.one', ['id' => $id]))->with('alert', [
                     'type' => 'success',
                     'message' => 'Новость успешно создана!',
@@ -38,19 +38,50 @@ class AdminNewsController extends DataController
             'title' => $title,
             'categories' => $this->categories,
         ]);
-}
+    }
 
-public
-function update(News $news)
-{
-    dd($news);
-}
+    public function update(News $news)
+    {
+        $title = 'Редактирование новости';
+        return view('admin.newsCreate')->with([
+            'oneNews' => $news,
+            'title' => $title,
+            'categories' => $this->categories,
+        ]);
+    }
 
-public
-function delete(News $news)
-{
-    dd($news);
-}
+    public function save(News $news)
+    {
+        $news->fill($this->request->all());
+        if ($url = News::imageForNews($this->request)) $news->image = $url;
+        if ($news->save()) {
+            return redirect(route('admin.news.all'))->with('alert', [
+                'type' => 'info',
+                'message' => 'Новость успешно изменена!',
+            ]);
+        }
+        return redirect(route('admin.news.all'))->with('alert', [
+            'type' => 'danger',
+            'message' => 'Что-то пошло не так!',
+        ]);
+
+    }
+
+
+    public function delete(News $news)
+    {
+        if ($news->delete()) {
+            return redirect(route('admin.news.all'))->with('alert', [
+                'type' => 'info',
+                'message' => 'Новость успешно удалена!',
+            ]);
+        }
+        return redirect(route('admin.news.all'))->with('alert', [
+            'type' => 'danger',
+            'message' => 'Что-то пошло не так!',
+        ]);
+
+    }
 
 
 }

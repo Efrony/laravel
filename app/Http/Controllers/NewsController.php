@@ -8,6 +8,7 @@ use App\News;
 
 class NewsController extends DataController
 {
+    protected $fillable = ['title', 'category', 'text', 'image', 'private'];
     public function one(News $oneNews)
     {
         return view('news.newsOne', [
