@@ -48,9 +48,10 @@
             </div>
 
             <div class="form-check form-check-inline">
+                <input name='private' type='hidden' value='0'>
                 <input name="private" class="form-check-input" type="checkbox" id="inlineCheckbox1" value="1"
-                       @if(isset($oneNews) && $oneNews->private == 1) checked @endif>
-                       @if(old('private') == 1) checked @endif
+                       @if(isset($oneNews) && $oneNews->private == 1) checked @endif
+                       @if(old('private') == 1) checked @endif>
                 <label class="form-check-label" for="inlineCheckbox1">Новость видна только авторизованным пользователям</label>
             </div>
 

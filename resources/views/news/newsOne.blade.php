@@ -1,7 +1,6 @@
 @extends('layouts.main')
 
 @section('content')
-
         <a  class="btn btn-primary mb-4" href="{{ route('news.all') }}"> < Назад </a><br>
 
         @if(!$oneNews->private)

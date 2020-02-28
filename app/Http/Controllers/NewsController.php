@@ -8,7 +8,6 @@ use App\News;
 
 class NewsController extends DataController
 {
-    protected $fillable = ['title', 'category', 'text', 'image', 'private'];
     public function one(News $oneNews)
     {
         return view('news.newsOne', [
@@ -32,8 +31,8 @@ class NewsController extends DataController
 
     public function category(Categories $category)
     {
-        $newsByCategory = News::where('category', $category->id)->paginate(8);
-
+        $newsByCategory = $category->news()->paginate(8);
+        //$newsByCategory = News::where('category', $category->id)->paginate(8);
         return view('news.news', [
             'title' => 'Новости в категории ' . $category->title,
             'news' => $newsByCategory,

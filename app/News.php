@@ -12,18 +12,6 @@ class News extends Model
     protected $fillable = ['text', 'title', 'private', 'category', 'image'];
 
 
-    public function getOneCategory($id)
-    {
-        $oneCategory = DB::table('categories')->find($id);
-        return $oneCategory;
-    }
-
-    public function getOneCategoryByName($name)
-    {
-        $oneCategory = DB::table('categories')->where('name', $name)->first();
-        return $oneCategory;
-    }
-
     public static function addNews(Request $request)
     {
         $request->flash();
@@ -32,7 +20,7 @@ class News extends Model
         $createdNews = [];
 
         foreach ($fields as $field => $value) {
-            if (!$value) {
+            if ($field != 'private' && !$value) {
                 $request->session()->put('_old_input.' . $field, 'empty');
                 $validFields = false;
                 continue;
@@ -41,7 +29,6 @@ class News extends Model
         }
 
         if (!$validFields) return false;
-        if (!isset($fields['private'])) $createdNews['private'] = 0;
         if ($url = News::imageForNews($request)) $createdNews['image'] = $url;
 
         $oneNews = new News();
@@ -57,5 +44,10 @@ class News extends Model
             return Storage::url($path);
         }
         return false;
+    }
+
+    public function category()
+    {
+        return $this->belongsTo(Categories::class, 'category')->first();
     }
 }
