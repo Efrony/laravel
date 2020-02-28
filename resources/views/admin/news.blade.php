@@ -19,7 +19,7 @@
                     </div>
                 </a>
                 @if($oneNews->private)
-                    <span class="ml-4" href="{{ route('admin.news.update', $oneNews) }}">
+                    <span class="ml-4">
                         <b>Приватная</b>
                     </span>
                 @endif
