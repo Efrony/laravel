@@ -13,25 +13,28 @@
 
 
 Route::get('/', 'IndexController@home')->name('index');
-Route::get('/admin', 'Admin\IndexController@admin')->name('admin');
+Auth::routes();
+Route::get('/home', 'HomeController@index')->name('home');
 
 
 Route::group([
-    'prefix' => 'news',
-    'as' => 'news.',
-], function () {
-    Route::get('/', 'NewsController@allNews')->name('all');
-    Route::get('/show/{id}', 'NewsController@oneNews')->name('one');
-    Route::get('/create', 'NewsController@createNews')->name('create');
-    Route::post('/add', 'NewsController@addNews')->name('add');
-    Route::get('/categories/{category}', 'NewsController@showCategory')->name('category');
-    //    Route::get('/categories', 'NewsController@categoriesNews')->name('categories');
+        'prefix' => 'admin/news',
+        'namespace' => 'Admin',
+        'as' => 'admin.news.',
+    ], function () {
+        Route::get('/', 'AdminNewsController@all')->name('all');
+        Route::match(['post', 'get'],'/create', 'AdminNewsController@create')->name('create');
+        Route::get('/update/{news}', 'AdminNewsController@update')->name('update');
+        Route::get('/save/{news}', 'AdminNewsController@save')->name('save');
+        Route::get('/delete/{news}', 'AdminNewsController@delete')->name('delete');
 });
 
-//Route::get('/news', 'NewsController@allNews')->name('all');
-//Route::get('/news/show/{id}', 'NewsController@oneNews')->name('one');
-//Route::get('/news/categories', 'NewsController@categoriesNews')->name('categories');
-//Route::get('/news/categories/{category}', 'NewsController@showCategory')->name('category');
 
-Auth::routes();
-Route::get('/home', 'HomeController@index')->name('home');
+Route::group([
+        'prefix' => 'news',
+        'as' => 'news.',
+    ], function () {
+        Route::get('/', 'NewsController@all')->name('all');
+        Route::get('/show/{oneNews}', 'NewsController@one')->name('one');
+        Route::get('/categories/{category}', 'NewsController@category')->name('category');
+});

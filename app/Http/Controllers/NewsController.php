@@ -3,96 +3,40 @@
 namespace App\Http\Controllers;
 
 
+use App\Categories;
 use App\News;
-use Faker\Provider\Lorem;
 
-class NewsController extends Controller
+class NewsController extends DataController
 {
-    public function getNews()
+    public function one(News $oneNews)
     {
-        return (new News())->getNews();
-    }
-    public function getCategories()
-    {
-        return(new News())->getCategories();
-    }
-
-
-    public function showCategory($category)
-    {
-        foreach ($this->getCategories() as $oneCategory) {
-            if ($oneCategory['category'] == $category) {
-                $category = $oneCategory;
-                break;
-            }
-        }
-
-        $title = 'Новости в категории ' . $category['title'];
-        $newsByCategory = [];
-
-        foreach ($this->getNews() as $new) {
-            if ($new['category'] == $category['id']) {
-                $newsByCategory[] = $new;
-            }
-         }
-
-        return view('news.news')->with([
-            'title' => $title,
-            'news' => $newsByCategory,
-            'categories' => $this->getCategories(),
+        return view('news.newsOne', [
+            'title' => $oneNews->title,
+            'oneNews' => $oneNews,
+            'categories' => $this->categories,
         ]);
     }
 
 
-    public function oneNews($id)
+    public function all()
     {
-        foreach ($this->getNews() as $new) {
-            if ($new['id'] == $id) {
-                return view('news.newsOne')->with([
-                    'title' => $new['title'],
-                    'new' => $new,
-                    'categories' => $this->getCategories(),
-                ]);
-            }
-        }
-        return redirect(route('news.all'));
-    }
 
-
-    public function allNews()
-    {
         $title = 'Все новости';
-        return view('news.news')->with([
+        return view('news.news', [
             'title' => $title,
-            'news' => $this->getNews(),
-            'categories' => $this->getCategories(),
+            'news' => News::paginate(8),
+            'categories' => $this->categories,
         ]);
     }
 
-
-    public function createNews()
+    public function category(Categories $category)
     {
-        $title = 'Добавить новость';
-        return view('news.newsCreate')->with([
-            'title' => $title,
-            'categories' => $this->getCategories(),
+        $newsByCategory = News::where('category', $category->id)->paginate(8);
+
+        return view('news.news', [
+            'title' => 'Новости в категории ' . $category->title,
+            'news' => $newsByCategory,
+            'categories' => $this->categories,
         ]);
     }
-
-
-    public function addNews()
-    {
-        return redirect(route('news.all'));
-    }
-
-    //
-//    public function categoriesNews()
-//    {
-//        $title = 'Категории новостей';
-//        return view('news.newsCategories')->with([
-//            'title' => $title,
-//            'categories' => $this->categories,
-//            'news' => $this->news,
-//        ]);
-//    }
 }

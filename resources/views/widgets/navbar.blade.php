@@ -12,12 +12,12 @@
             </li>
 
             <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle @yield('active_admin')" href="{{ route('admin') }}" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <a class="nav-link dropdown-toggle @yield('active_admin')" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Администрирование
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                    <a class="dropdown-item" href="{{ route('admin') }}">Администрирование</a>
-                    <a class="dropdown-item" href="{{ route('news.create') }}">Добавить новость</a>
+                    <a class="dropdown-item" href="{{ route('admin.news.all') }}">Редактирование новостей</a>
+                    <a class="dropdown-item" href="{{ route('admin.news.create') }}">Добавить новость</a>
                 </div>
             </li>
 
@@ -38,26 +38,16 @@
             @else
             <!-- Мой аккаунт -->
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Мой аккаунт
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <a class="dropdown-item" href="{{ route('home') }}">Мой аккаунт</a>
-                        <a class="dropdown-item" href="#">Избранные новости</a>
-                        <a class="dropdown-item" href="#">Настройки</a>
-                        <a class="dropdown-item" href="#">Выйти</a>
-                    </div>
-                </li>
-                <li class="nav-item dropdown">
                     <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                         {{ Auth::user()->name }} <span class="caret"></span>
                     </a>
 
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="{{ route('home') }}">Мой аккаунт</a>
+                        <a class="dropdown-item" href="#">Избранные новости</a>
+                        <a class="dropdown-item" href="#">Настройки</a>
                         <a class="dropdown-item" href="{{ route('logout') }}"
-                           onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                            {{ __('Logout') }}
+                           onclick="event.preventDefault(); document.getElementById('logout-form').submit();"> Выйти
                         </a>
 
                         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">

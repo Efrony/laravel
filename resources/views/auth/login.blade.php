@@ -3,9 +3,9 @@
 @section('content')
     <div class="row justify-content-center">
         <div class="col-md-8">
-            <div class="card">
+            <div class="card mt-5">
                 <div class="card-header">{{ __('Login') }}</div>
-
+                <p> TEST admin@admin.ru user@user.ru passwords: 12345678</p>
                 <div class="card-body">
                     <form method="POST" action="{{ route('login') }}">
                         @csrf
