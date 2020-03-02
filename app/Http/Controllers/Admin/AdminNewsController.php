@@ -22,10 +22,10 @@ class AdminNewsController extends DataController
     {
 
         if ($this->request->isMethod('post')) {
-            $validFields = $this->validate($this->request, News::rules());
-            if ($url = News::imageForNews($this->request)) $validFields['image'] = $url;
+            $validFields = $this->validate($this->request, News::rules(), [], News::attributeNames());
             $oneNews = new News();
             $oneNews->fill($validFields);
+            if ($url = News::imageForNews($this->request)) $oneNews->image = $url;
             if ($oneNews->save()) {
                 return redirect(route('news.one', ['id' => $oneNews->id]))->with('alert', [
                     'type' => 'success',
@@ -57,7 +57,8 @@ class AdminNewsController extends DataController
 
     public function save(News $news)
     {
-        $news->fill($this->request->all());
+        $validFields = $this->validate($this->request, News::rules(), [], News::attributeNames());
+        $news->fill($validFields);
         if ($url = News::imageForNews($this->request)) $news->image = $url;
         if ($news->save()) {
             return redirect(route('admin.news.all'))->with('alert', [

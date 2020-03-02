@@ -18,6 +18,16 @@ class News extends Model
             'text' => 'required|min:20|max:4000',
             'category' => "required|exists:{$categories},id",
             'image' => 'mimes:jpeg,png|max:1500',
+            'private' => 'boolean',
+        ];
+    }
+
+    public static function attributeNames() {
+        return [
+            'title'                 => 'Заголовок',
+            'text'                  => 'Описание новости',
+            'category'              => 'Категория',
+            'image'                 => 'Изображение для новости',
         ];
     }
 
