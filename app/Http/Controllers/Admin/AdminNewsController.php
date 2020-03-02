@@ -20,9 +20,14 @@ class AdminNewsController extends DataController
 
     public function create()
     {
+
         if ($this->request->isMethod('post')) {
-            if ($id = News::addNews($this->request)) {
-                return redirect(route('news.one', ['id' => $id]))->with('alert', [
+            $validFields = $this->validate($this->request, News::rules());
+            if ($url = News::imageForNews($this->request)) $validFields['image'] = $url;
+            $oneNews = new News();
+            $oneNews->fill($validFields);
+            if ($oneNews->save()) {
+                return redirect(route('news.one', ['id' => $oneNews->id]))->with('alert', [
                     'type' => 'success',
                     'message' => 'Новость успешно создана!',
                 ]);

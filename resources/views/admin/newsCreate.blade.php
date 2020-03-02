@@ -4,17 +4,25 @@
     {{ 'active' }}
 @endsection
 
-
 @section('content')
         <form method="POST" action="@if (isset($oneNews)) {{ route('admin.news.save', $oneNews) }} @else {{ route('admin.news.create') }} @endif" enctype="multipart/form-data">
             @csrf
             <div class="form-group">
-                <label for="exampleFormControlSelect1">Выберите категорию</label>
+                <label for="exampleFormControlSelect1">
+                    @if($errors->has('category'))
+                        <span style="color: red">
+                            @foreach($errors->get('category') as $error)
+                                {{ $error}}
+                            @endforeach
+                        </span>
+                    @else Выберите категорию
+                    @endif
+                </label>
                 <select name="category" class="form-control" id="exampleFormControlSelect1">
                         @foreach ($categories as $category)
                             <option value="{{ $category->id }}"
                                     @if(isset($oneNews) && $oneNews->category == $category->id) selected @endif
-                                    @if($category->id == old('$category')) selected @endif>
+                                    @if($category->id == old('category')) selected @endif>
                                 {{ $category->title }}
                             </option>
                         @endforeach
@@ -23,26 +31,43 @@
 
             <div class="form-group">
                 <label for="exampleFormControlTextarea1">
-                    @if(old('title') == 'empty') <span style="color: red">Поле "Заголовок" обязательно для заполнения</span>
-                        @else Заголовок
+                    @if($errors->has('title'))
+                        <span style="color: red">
+                            @foreach($errors->get('title') as $error)
+                                {{ $error}}
+                            @endforeach
+                        </span>
+                    @else Заголовок
                     @endif
                 </label>
-                <input value="@if(old('title') != 'empty'){{ $oneNews->title ?? old('title') }} @endif" name="title" class="form-control" type="text" placeholder="Заголовок">
+                <input value="{{ $oneNews->title ?? old('title') }}" name="title" class="form-control" type="text" placeholder="Заголовок">
             </div>
 
             <div class="form-group">
                 <label for="exampleFormControlTextarea1">
-                    @if(old('text') == 'empty') <span style="color: red">Поле "Описание новости" обязательно для заполнения</span>
-                        @else Описание новости
+                    @if($errors->has('text'))
+                        <span style="color: red">
+                            @foreach($errors->get('text') as $error)
+                                {{ $error}}
+                            @endforeach
+                        </span>
+                    @else Описание новости
                     @endif
                 </label>
                 <textarea  name="text" class="form-control" id="exampleFormControlTextarea1" rows="3"
-                >@if(old('text') != 'empty'){{ $oneNews->text ?? old('text') }} @endif</textarea>
+                >{{ $oneNews->text ?? old('text') }}</textarea>
             </div>
 
             <div class="form-group">
                 <label for="image-for-news">
-                    Изображение для новости:
+                    @if($errors->has('image'))
+                        <span style="color: red">
+                            @foreach($errors->get('image') as $error)
+                                {{ $error}}
+                            @endforeach
+                        </span>
+                    @else Изображение для новости:
+                    @endif
                 </label>
                 <input type="file" name="image" id="image-for-news">
             </div>

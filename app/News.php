@@ -4,37 +4,21 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
 class News extends Model
 {
     protected $fillable = ['text', 'title', 'private', 'category', 'image'];
 
-
-    public static function addNews(Request $request)
+    public static function rules()
     {
-        $request->flash();
-        $validFields = true;
-        $fields = $request->except('_token');
-        $createdNews = [];
-
-        foreach ($fields as $field => $value) {
-            if ($field != 'private' && !$value) {
-                $request->session()->put('_old_input.' . $field, 'empty');
-                $validFields = false;
-                continue;
-            }
-            $createdNews[$field] = $value;
-        }
-
-        if (!$validFields) return false;
-        if ($url = News::imageForNews($request)) $createdNews['image'] = $url;
-
-        $oneNews = new News();
-        $oneNews->fill($createdNews);
-        $oneNews->save();
-        return $oneNews->id;
+        $categories = (new Categories())->getTable();
+        return [
+            'title' => 'required|min:3|max:20',
+            'text' => 'required|min:20|max:4000',
+            'category' => "required|exists:{$categories},id",
+            'image' => 'mimes:jpeg,png|max:1500',
+        ];
     }
 
     public static function imageForNews(Request $request)
