@@ -32,7 +32,6 @@ class NewsController extends DataController
     public function category(Categories $category)
     {
         $newsByCategory = $category->news()->paginate(8);
-        //$newsByCategory = News::where('category', $category->id)->paginate(8);
         return view('news.news', [
             'title' => 'Новости в категории ' . $category->title,
             'news' => $newsByCategory,

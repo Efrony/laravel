@@ -40,7 +40,7 @@
                     @else Заголовок
                     @endif
                 </label>
-                <input value="{{ $oneNews->title ?? old('title') }}" name="title" class="form-control" type="text" placeholder="Заголовок">
+                <input value="{{ old('title') ?? $oneNews->title ?? '' }}" name="title" class="form-control" type="text" placeholder="Заголовок">
             </div>
 
             <div class="form-group">
@@ -55,7 +55,7 @@
                     @endif
                 </label>
                 <textarea  name="text" class="form-control" id="exampleFormControlTextarea1" rows="3"
-                >{{ $oneNews->text ?? old('text') }}</textarea>
+                >{{ old('text') ?? $oneNews->text ?? '' }}</textarea>
             </div>
 
             <div class="form-group">

@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 
 class UsersSeeder extends Seeder
 {
@@ -20,11 +21,13 @@ class UsersSeeder extends Seeder
             [
                 'email' => 'admin@admin.ru',
                 'name' => 'Администратор',
-                'password' => '$2y$10$FIbERmei8XgIgL7vshnkKuLoIlEZgaUfCULrJSZbxl1WqrPUh401S' // password: 12345678
+                'password' => Hash::make('12345678'),
+                'admin' => true
             ], [
                 'email' => 'user@user.ru',
                 'name' => 'Гость',
-                'password' => '$2y$10$FIbERmei8XgIgL7vshnkKuLoIlEZgaUfCULrJSZbxl1WqrPUh401S' // password: 12345678
+                'password' => Hash::make('12345678'),
+                'admin' => false
             ],
         ];
 
