@@ -18,26 +18,28 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 
 Route::group([
-    'prefix' => 'admin/',
+    'prefix' => 'admin',
     'namespace' => 'Admin',
     'as' => 'admin.',
     'middleware' => 'admin'
 ], function () {
-    Route::resource('/news', 'AdminNewsController');
+    Route::resource('news', 'AdminNewsController')->except('show');
+    Route::resource('users', 'AdminUsersController')->except('show', 'create', 'store');
+
 });
 
-Route::group([
-        'prefix' => 'admin/news',
-        'namespace' => 'Admin',
-        'as' => 'admin.news.',
-        'middleware' => 'admin'
-    ], function () {
-        Route::get('/', 'AdminNewsController@all')->name('all');
-        Route::match(['post', 'get'],'/create', 'AdminNewsController@create')->name('create');
-        Route::get('/update/{news}', 'AdminNewsController@update')->name('update');
-        Route::post('/save/{news}', 'AdminNewsController@save')->name('save');
-        Route::get('/delete/{news}', 'AdminNewsController@delete')->name('delete');
-});
+//Route::group([
+//        'prefix' => 'admin/news',
+//        'namespace' => 'Admin',
+//        'as' => 'admin.news.',
+//        'middleware' => 'admin'
+//    ], function () {
+//        Route::get('/', 'AdminNewsController@all')->name('all');
+//        Route::match(['post', 'get'],'/create', 'AdminNewsController@create')->name('create');
+//        Route::get('/update/{news}', 'AdminNewsController@update')->name('update');
+//        Route::post('/save/{news}', 'AdminNewsController@save')->name('save');
+//        Route::get('/delete/{news}', 'AdminNewsController@delete')->name('delete');
+//});
 
 
 

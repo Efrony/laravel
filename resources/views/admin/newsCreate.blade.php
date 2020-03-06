@@ -5,7 +5,13 @@
 @endsection
 
 @section('content')
-        <form method="POST" action="@if (isset($oneNews)) {{ route('admin.news.save', $oneNews) }} @else {{ route('admin.news.create') }} @endif" enctype="multipart/form-data">
+        <form enctype="multipart/form-data" method="POST"
+            @if (isset($oneNews))
+                action={{ route('admin.news.update', $oneNews) }} >
+                @method('PUT')
+            @else
+                action={{ route('admin.news.store') }} >
+            @endif
             @csrf
             <div class="form-group">
                 <label for="exampleFormControlSelect1">
