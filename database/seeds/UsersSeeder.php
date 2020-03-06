@@ -24,8 +24,13 @@ class UsersSeeder extends Seeder
                 'password' => Hash::make('12345678'),
                 'admin' => true
             ], [
-                'email' => 'user@user.ru',
-                'name' => 'Гость',
+                'email' => 'user1@user.ru',
+                'name' => 'Пользователь 1',
+                'password' => Hash::make('12345678'),
+                'admin' => false
+            ], [
+                'email' => 'user2@user.ru',
+                'name' => 'Пользователь 2',
                 'password' => Hash::make('12345678'),
                 'admin' => false
             ],

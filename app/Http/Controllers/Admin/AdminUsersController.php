@@ -2,13 +2,11 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\DataController;
-use App\News;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 use App\User;
 
-class AdminUsersController extends DataController
+class AdminUsersController extends Controller
 {
     public function index()
     {
@@ -26,10 +24,9 @@ class AdminUsersController extends DataController
         ]);
     }
 
-    public function update(User $user)
+    public function update(Request $request, User $user)
     {
-        $validFields = $this->validate($this->request, User::rules());
-        dd($validFields);
+        $validFields = $this->validate($request, User::rules());
         $user->fill($validFields);
         if ($user->save()) {
             return redirect(route('admin.users.index'))->with('alert', [

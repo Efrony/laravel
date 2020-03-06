@@ -3,13 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Controllers\DataController;
 
-class AdminIndexController extends DataController
+class AdminIndexController extends Controller
 {
     public function admin()
     {
-        $title = 'Админка';
-        return view('admin.index', compact('title') );
+        return view('admin.index', ['title'=> 'Админка'] );
     }
 }

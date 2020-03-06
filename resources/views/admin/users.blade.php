@@ -15,7 +15,11 @@
                         <a href="{{ route('admin.users.edit', ['user' => $user]) }}" class="btn btn-outline-success btn-sm">
                             Редактировать
                         </a>
-                        <a href="#" class="btn btn-outline-danger btn-sm">Удалить</a>
+                        <form method="POST" action="{{ route('admin.users.destroy', ['user' => $user]) }}">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-outline-danger btn-sm">Удалить</button>
+                        </form>
                     </div>
                 </div>
         @empty
