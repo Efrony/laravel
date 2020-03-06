@@ -70,7 +70,6 @@ class AdminNewsController extends DataController
             'type' => 'danger',
             'message' => 'Что-то пошло не так!',
         ]);
-
     }
 
 
@@ -86,8 +85,5 @@ class AdminNewsController extends DataController
             'type' => 'danger',
             'message' => 'Что-то пошло не так!',
         ]);
-
     }
-
-
 }
