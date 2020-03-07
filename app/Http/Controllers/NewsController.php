@@ -6,37 +6,33 @@ namespace App\Http\Controllers;
 use App\Categories;
 use App\News;
 
-class NewsController extends DataController
+class NewsController extends Controller
 {
     public function one(News $oneNews)
     {
         return view('news.newsOne', [
             'title' => $oneNews->title,
             'oneNews' => $oneNews,
-            'categories' => $this->categories,
+            'categories' => Categories::all(),
         ]);
     }
 
 
     public function all()
     {
-
-        $title = 'Все новости';
         return view('news.news', [
-            'title' => $title,
+            'title' => 'Все новости',
             'news' => News::paginate(8),
-            'categories' => $this->categories,
+            'categories' => Categories::all(),
         ]);
     }
 
     public function category(Categories $category)
     {
-        $newsByCategory = News::where('category', $category->id)->paginate(8);
-
         return view('news.news', [
             'title' => 'Новости в категории ' . $category->title,
-            'news' => $newsByCategory,
-            'categories' => $this->categories,
+            'news' =>  $category->news()->paginate(8),
+            'categories' => Categories::all(),
         ]);
     }
 }

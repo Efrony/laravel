@@ -23,7 +23,7 @@ class CreateNewsTable extends Migration
             $table->string('image')
                 ->default('img/280.svg')
                 ->comment('Путь к изображению');
-            $table->integer('category')
+            $table->unsignedBigInteger('category')
                 ->default(0)
                 ->comment('Категория');
             $table->timestamp('created_at')->useCurrent();

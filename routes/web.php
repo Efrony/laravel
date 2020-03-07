@@ -1,32 +1,28 @@
 <?php
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
-
-
 Route::get('/', 'IndexController@home')->name('index');
 Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 
 Route::group([
-        'prefix' => 'admin/news',
-        'namespace' => 'Admin',
-        'as' => 'admin.news.',
-    ], function () {
-        Route::get('/', 'AdminNewsController@all')->name('all');
-        Route::match(['post', 'get'],'/create', 'AdminNewsController@create')->name('create');
-        Route::get('/update/{news}', 'AdminNewsController@update')->name('update');
-        Route::get('/save/{news}', 'AdminNewsController@save')->name('save');
-        Route::get('/delete/{news}', 'AdminNewsController@delete')->name('delete');
+    'prefix' => 'admin',
+    'namespace' => 'Admin',
+    'as' => 'admin.',
+    'middleware' => 'admin'
+], function () {
+    Route::resource('news', 'AdminNewsController')->except('show');
+    Route::resource('users', 'AdminUsersController')->except('show', 'create', 'store');
+
+});
+
+Route::group([
+    'prefix' => 'profile',
+    'as' => 'profile.',
+    'middleware' => 'auth',
+], function () {
+    Route::get('/edit', 'ProfileController@edit')->name('edit');
+    Route::post('/update/{user}', 'ProfileController@update')->name('update');
 });
 
 

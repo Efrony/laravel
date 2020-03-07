@@ -4,77 +4,44 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
 class News extends Model
 {
-//    public function getNews()
-//    {
-//        $news = DB::table('news')->get();
-//        $news = News::all()->toArray();
-//        return $news;
-//    }
+    protected $fillable = ['text', 'title', 'private', 'category', 'image'];
 
-//    public function getOneNews(News $oneNews)
-//    {
-////        $oneNews = DB::table('news')->find($id);
-//        return $oneNews;
-//    }
-
-//    public function getNewsByCategory($id)
-//    {
-//        $oneNews = DB::table('news')->find($id);
-//        return $oneNews;
-//    }
-
-//    public function getCategories()
-//    {
-//        $categories = DB::table('categories')->get();
-//        return $categories;
-//    }
-
-    public function getOneCategory($id)
+    public static function rules()
     {
-        $oneCategory = DB::table('categories')->find($id);
-        return $oneCategory;
+        $categories = (new Categories())->getTable();
+        return [
+            'title' => 'required|min:3|max:50',
+            'text' => 'required|min:20|max:4000',
+            'category' => "required|exists:{$categories},id",
+            'image' => 'mimes:jpeg,png|max:1500',
+            'private' => 'boolean',
+        ];
     }
 
-    public function getOneCategoryByName($name)
-    {
-        $oneCategory = DB::table('categories')->where('name', $name)->first();
-        return $oneCategory;
+    public static function attributeNames() {
+        return [
+            'title'                 => 'Заголовок',
+            'text'                  => 'Описание новости',
+            'category'              => 'Категория',
+            'image'                 => 'Изображение для новости',
+        ];
     }
 
-    public function addNews(Request $request)
-    {
-        if ($request->isMethod('post')) {
-            $request->flash();
-            $validFields = true;
-            $fields = $request->except('_token');
-            $createdNews = [];
-
-            foreach ($fields as $field => $value) {
-                if (!$value) {
-                    $request->session()->put('_old_input.' . $field, 'empty');
-                    $validFields = false;
-                    continue;
-                }
-                $createdNews[$field] = $value;
-            }
-            if (!$validFields)  return false;
-            if ($url = $this->imageForNews($request)) $createdNews['image'] = $url;
-
-            return  DB::table('news')->insertGetId($createdNews);
-        }
-    }
-
-    public function imageForNews(Request $request)
+    public static function imageForNews(Request $request)
     {
         if ($file = $request->file('image')) {
-            $path = Storage::putFile('public', $file);
+            $path = $file->store('public'); //Storage::putFile('public', $file);
             return Storage::url($path);
         }
         return false;
+    }
+
+    public function category()
+    {
+        return $this->belongsTo(Categories::class, 'category')->first();
     }
 }

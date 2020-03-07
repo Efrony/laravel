@@ -19,13 +19,19 @@
                     </div>
                 </a>
                 @if($oneNews->private)
-                    <span class="ml-4" href="{{ route('admin.news.update', $oneNews) }}">
+                    <span class="ml-4 mb-3">
                         <b>Приватная</b>
                     </span>
                 @endif
                 <div class="ml-4 mr-4 mb-3 cards-news-buttons-custom">
-                    <a style="color: darkgreen" href="{{ route('admin.news.update', $oneNews) }}">Редактировать</a>
-                    <a style="color: red" href="{{ route('admin.news.delete', $oneNews) }}">Удалить</a>
+                    <a style="color: darkgreen" href="{{ route('admin.news.edit', $oneNews) }}">
+                        <button class="btn btn-sm btn-outline-success">Редактировать</button>
+                    </a>
+                    <form action="{{ route('admin.news.destroy', $oneNews) }}" method="POST">
+                        @csrf
+                        @method('DELETE')
+                        <button class="btn btn-sm btn-outline-danger" type="submit">Удалить</button>
+                    </form>
                 </div>
             </div>
         @empty
