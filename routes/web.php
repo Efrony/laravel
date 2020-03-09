@@ -1,9 +1,9 @@
 <?php
 
-Route::get('/', 'IndexController@home')->name('index');
 Auth::routes();
-Route::get('/home', 'HomeController@index')->name('home');
-
+Route::get('/', 'HomeController@index')->name('home');
+Route::get('/auth/vk', 'LoginController@loginVK')->name('vkLogin');
+Route::get('/auth/vk/response', 'LoginController@responseVK')->name('vkResponse');
 
 Route::group([
     'prefix' => 'admin',
@@ -13,6 +13,7 @@ Route::group([
 ], function () {
     Route::resource('news', 'AdminNewsController')->except('show');
     Route::resource('users', 'AdminUsersController')->except('show', 'create', 'store');
+    Route::get('/parser', 'ParserController@index')->name('parser');
 
 });
 

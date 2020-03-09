@@ -35,3 +35,9 @@
     justify-content: center;
     margin-top: 20px;
 }
+
+
+.avatar-custom {
+    border-radius: 50%;
+    height: 30px;
+}

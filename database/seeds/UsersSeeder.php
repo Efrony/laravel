@@ -21,17 +21,17 @@ class UsersSeeder extends Seeder
             [
                 'email' => 'admin@admin.ru',
                 'name' => 'Администратор',
-                'password' => Hash::make('12345678'),
+                'password' => Hash::make('123'),
                 'admin' => true
             ], [
                 'email' => 'user1@user.ru',
                 'name' => 'Пользователь 1',
-                'password' => Hash::make('12345678'),
+                'password' => Hash::make('123'),
                 'admin' => false
             ], [
                 'email' => 'user2@user.ru',
                 'name' => 'Пользователь 2',
-                'password' => Hash::make('12345678'),
+                'password' => Hash::make('123'),
                 'admin' => false
             ],
         ];
