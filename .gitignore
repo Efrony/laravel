@@ -12,3 +12,5 @@ yarn-error.log
 /.idea/
 .composer.phar
 .php.xml
+/public/vendor/
+/public/photos/

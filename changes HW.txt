@@ -1,2 +1,12 @@
-Убрал наш сидер новостей. Сделал в админке кнопку подгрузить новости с портала яндекс в соответствии с ншими категориями
-Сделана Авторизация через VK по аналогии с уроком
+установка менеджера пакетов
+https://unisharp.github.io/laravel-filemanager/installation
+ composer require unisharp/laravel-filemanager:~1.8
+ php artisan vendor:publish --tag=lfm_config
+ php artisan vendor:publish --tag=lfm_public
+ php artisan storage:link
+
+адрес в env
+
+пересобрать npm
+npm i
+npm run

@@ -13,7 +13,7 @@ class LoginController extends Controller
     public function loginVK()
     {
         session()->get('soc.token');
-        if (Auth::id()) {
+        if (Auth::check()) {
             return redirect()->route('home');
         }
         return Socialite::with('vkontakte')->redirect();
@@ -21,7 +21,7 @@ class LoginController extends Controller
 
     public function responseVK(UserRepository $userRepository)
     {
-        if (Auth::id()) {
+        if (Auth::check()) {
             return redirect()->route('home');
         }
         $user = Socialite::driver('vkontakte')->user();
