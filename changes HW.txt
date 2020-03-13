@@ -1,3 +1,8 @@
+пересобрать npm
+npm i
+npm run
+
+
 установка менеджера пакетов
 https://unisharp.github.io/laravel-filemanager/installation
  composer require unisharp/laravel-filemanager:~1.8
@@ -5,8 +10,10 @@ https://unisharp.github.io/laravel-filemanager/installation
  php artisan vendor:publish --tag=lfm_public
  php artisan storage:link
 
-адрес в env
 
-пересобрать npm
-npm i
-npm run
+redis
+
+php composer require predis/predis
+
+php artisan queue:work
+php artisan queue:restart

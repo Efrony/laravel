@@ -3,35 +3,41 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Categories;
+use App\Jobs\NewsParsing;
 use App\News;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Orchestra\Parser\Xml\Facade as XmlParser;
+use App\Services\XMLParserService;
 
 class ParserController extends Controller
 {
     public function index()
     {
-        $categories = Categories::all();
-        foreach ($categories as $category) {
-            $xml = XmlParser::load("https://news.yandex.ru/{$category->name}.rss");
-            $data = $xml->parse([
-                'title' => ['uses' => 'channel.title'],
-                'link' => ['uses    ' => 'channel.link'],
-                'text' => ['uses' => 'channel.description'],
-                'image' => ['uses' => 'channel.image.url'],
-                'news' => ['uses' => 'channel.item[title,link,guid,description,pubDate]']
-            ]);
+        $rssLink = [
+            'https://news.yandex.ru/auto.rss',
+            'https://news.yandex.ru/auto_racing.rss',
+            'https://news.yandex.ru/army.rss',
+            'https://news.yandex.ru/gadgets.rss',
+            'https://news.yandex.ru/index.rss',
+            'https://news.yandex.ru/martial_arts.rss',
+            'https://news.yandex.ru/communal.rss',
+            'https://news.yandex.ru/health.rss',
+            'https://news.yandex.ru/games.rss',
+            'https://news.yandex.ru/internet.rss',
+            'https://news.yandex.ru/cyber_sport.rss',
+            'https://news.yandex.ru/movies.rss',
+            'https://news.yandex.ru/cosmos.rss',
+            'https://news.yandex.ru/culture.rss',
+            'https://news.yandex.ru/fire.rss',
+            'https://news.yandex.ru/championsleague.rss',
+            'https://news.yandex.ru/music.rss',
+            'https://news.yandex.ru/nhl.rss',
+        ];
 
-            foreach ($data['news'] as $item) {
-                $oneNews = new News();
-                $oneNews->title = $item['title'];
-                $oneNews->text = $item['description'] . ' ' . $item['link'];
-                $oneNews->category = $category->id;
-                $oneNews->private = (bool)rand(0, 1);
-                $oneNews->save();
-            }
+        foreach ($rssLink as $link) {
+            //$parserService->saveNews($link);
+            NewsParsing::dispatch($link);
         }
-        return redirect()->route('news.all');
     }
 }
