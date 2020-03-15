@@ -6,7 +6,7 @@ use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-class AdminController extends Controller
+class ApiAdminController extends Controller
 {
     public function userToAdmin(Request $request)
     {
@@ -15,5 +15,15 @@ class AdminController extends Controller
         else $user->admin = 0;
         $user->save();
         return response()->json(['status' => 'ok', 'id' => $request->id, 'admin' => $user->admin]);
+    }
+
+    public function createLink()
+    {
+
+    }
+
+    public function deleteLink()
+    {
+
     }
 }

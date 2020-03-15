@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Categories;
 use App\Jobs\NewsParsing;
 use App\News;
+use App\Resources;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Orchestra\Parser\Xml\Facade as XmlParser;
@@ -12,7 +13,14 @@ use App\Services\XMLParserService;
 
 class ParserController extends Controller
 {
-    public function index(XMLParserService $parserService)
+    public function index()
+    {
+        return view('admin.parser', [
+            'title' => 'Управление парсингом',
+             'resources' => Resources::paginate(10),
+        ]);
+    }
+    public function load(XMLParserService $parserService)
     {
         $rssLink = [
             'https://news.yandex.ru/auto.rss',

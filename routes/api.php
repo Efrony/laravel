@@ -21,5 +21,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 //    return response()->json(['status' => 'ok', 'id' => $request->id]);
 //})->middleware('api');
 
-Route::post('user-admin', 'Api\AdminController@userToAdmin')->middleware('api');
-
+Route::post('user-admin', 'Api\ApiAdminController@userToAdmin')->middleware('api');
+Route::post('create-link', 'Api\ApiAdminController@createLink')->middleware('api');
+Route::post('delete-link', 'Api\ApiAdminController@deleteLink')->middleware('api');

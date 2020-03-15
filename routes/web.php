@@ -13,7 +13,8 @@ Route::group([
 ], function () {
     Route::resource('news', 'AdminNewsController')->except('show');
     Route::resource('users', 'AdminUsersController')->except('show', 'create', 'store');
-    Route::get('/parser', 'ParserController@index')->name('parser');
+    Route::get('/parser', 'ParserController@index')->name('parser.index');
+    Route::get('/parser/load', 'ParserController@load')->name('parser.load');
 
 });
 
