@@ -9,8 +9,8 @@
         @forelse($users as $user)
             @if($user->id == Auth::id()) @continue @endif
                 <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">{{ $user->name }} @if($user->admin) <b>(Админ)</b><br> @endif</h5>
+                    <div class="card-body" id="{{ $user->id }}">
+                        <h5 class="card-title">{{ $user->name }} <b>@if($user->admin) (Админ)<br> @endif </b></h5>
                         <p class="card-text">{{ $user->email }}</p>
                         <a href="{{ route('admin.users.edit', ['user' => $user]) }}" class="btn btn-outline-success btn-sm mb-2">
                             Редактировать
@@ -36,17 +36,32 @@
     <div class="pagination-custom">{{ $users->links() }}</div>
 
     <script>
-        let  userAdminButton = document.getElementsByClassName('user-admin-button');
+        let  userAdminButton = document.querySelectorAll('.user-admin-button');
         userAdminButton.forEach((button) => {
             button.addEventListener('click', () => {
-                console.log(button);
                 let id = button.dataset.id;
-                console.log(id);
-                (async () => {
-                    const response = await fetch('/api/user-admin/?id=' + id);
-                    const answer = await response.json();
-                    console.log(answer);
-                })();
+
+                fetch('/api/user-admin', {
+                    method: 'POST',
+                    headers: {
+                        "content-type": "application/json",
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    body: JSON.stringify({
+                        'id': id,
+                    })
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        card = document.getElementById(data.id);
+                        if (data.admin == 1) {
+                            card.querySelector('button').innerHTML = '<b>Сделать обычным пользователем</b>';
+                            card.querySelector('h5').querySelector('b').textContent = '(Админ)';
+                        } else {
+                            card.querySelector('button').innerHTML = '<b>Сделать администратором</b>';
+                            card.querySelector('h5').querySelector('b').textContent = '';
+                        }
+                    })
             });
         });
     </script>

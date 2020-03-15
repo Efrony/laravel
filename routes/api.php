@@ -17,6 +17,9 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('user-admin', function (Request $request) {
-    return response()->json(['status' => 'ok', 'id' => $request->id]);
-})->middleware('api');
+//Route::get('user-admin', function (Request $request) {
+//    return response()->json(['status' => 'ok', 'id' => $request->id]);
+//})->middleware('api');
+
+Route::post('user-admin', 'Api\AdminController@userToAdmin')->middleware('api');
+
