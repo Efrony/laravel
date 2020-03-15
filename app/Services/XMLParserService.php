@@ -22,11 +22,10 @@ class XMLParserService
                 'image' => ['uses' => 'channel.image.url'],
                 'news' => ['uses' => 'channel.item[title,id,link,guid,description,pubDate]']
             ]);
-
 //            $filename = sprintf('logs%s.txt', time());
 //            Storage::disk('publicLogs')->append($filename, date('c') . ' ' . $link);
 
-            $category = $this->checkCategory($link);
+            $category = $this->checkCategory($link, $data['title']);
             $links = DB::table('news')->pluck('link');
 
             foreach ($data['news'] as $item) {
@@ -49,19 +48,20 @@ class XMLParserService
     }
 
 
-    public function checkCategory($link)
+    public function checkCategory($link, $title)
     {
         preg_match('/\w+\.rss/', $link, $found);
-        $categoryName = (explode('.', $found[0])[0]);
+        $name = (explode('.', $found[0])[0]);
+        $title = explode(': ', $title)[1];
         $categories = Categories::all();
 
-        if (!$categories->contains('name', $categoryName)){
+        if (!$categories->contains('name', $name)){
             $category = new Categories();
-            $category->name = $categoryName;
-            $category->title = $categoryName;
+            $category->name = $name;
+            $category->title = $title;
             $category->save();
         } else {
-            return $categories->where('name', $categoryName)->first()->id;
+            return $categories->where('name', $name)->first()->id;
         }
         return $category->id;
     }
