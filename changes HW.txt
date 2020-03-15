@@ -1,3 +1,7 @@
+асинхронное добавление/удаление пользователя в админы
+
+
+
 пересобрать npm
 npm i
 npm run
@@ -17,3 +21,7 @@ php composer require predis/predis
 
 php artisan queue:work
 php artisan queue:restart
+
+
+
+
