@@ -60,8 +60,8 @@
                     @else Описание новости
                     @endif
                 </label>
-                <textarea  name="text" class="form-control" id="exampleFormControlTextarea1" rows="3"
-                >{{ old('text') ?? $oneNews->text ?? '' }}</textarea>
+                <textarea id="news-editor" name="text" class="form-control" id="exampleFormControlTextarea1" rows="3"
+                >{!! old('text') ?? $oneNews->text ?? '' !!}</textarea>
             </div>
 
             <div class="form-group">
@@ -91,5 +91,18 @@
 
             </button>
         </form>
+
+        <script src="//cdn.ckeditor.com/4.6.2/standard/ckeditor.js"></script>
+        <script>
+            var options = {
+                filebrowserImageBrowseUrl: '/laravel-filemanager?type=Images',
+                filebrowserImageUploadUrl: '/laravel-filemanager/upload?type=Images&_token=',
+                filebrowserBrowseUrl: '/laravel-filemanager?type=Files',
+                filebrowserUploadUrl: '/laravel-filemanager/upload?type=Files&_token='
+            };
+        </script>
+        <script>
+            CKEDITOR.replace('news-editor', options);
+        </script>
 @endsection
 

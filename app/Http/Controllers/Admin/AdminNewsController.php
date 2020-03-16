@@ -7,6 +7,7 @@ use App\Categories;
 use App\Http\Controllers\Controller;
 use App\News;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AdminNewsController extends Controller
 {
@@ -32,6 +33,7 @@ class AdminNewsController extends Controller
         $validFields = $this->validate($request, News::rules(), [], News::attributeNames());
         $oneNews = new News();
         $oneNews->fill($validFields);
+        $oneNews->link = 'Created by ' . Auth::user()->name;
         if ($url = News::imageForNews($request)) $oneNews->image = $url;
         if ($oneNews->save()) {
             return redirect(route('news.one', ['id' => $oneNews->id]))->with('alert', [

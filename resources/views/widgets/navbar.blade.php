@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <!-- Left Side Of Navbar -->
-    <a class="navbar-brand" href="{{ route('index') }}">Главная</a>
+    <a class="navbar-brand" href="{{ route('home') }}">Главная</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
@@ -17,6 +17,7 @@
                         Администрирование
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <a class="dropdown-item" href="{{ route('admin.resources.index') }}">Ресурсы новостей</a>
                         <a class="dropdown-item" href="{{ route('admin.users.index') }}">Пользователи</a>
                         <a class="dropdown-item" href="{{ route('admin.news.index') }}">Редактирование новостей</a>
                         <a class="dropdown-item" href="{{ route('admin.news.create') }}">Добавить новость</a>
@@ -45,10 +46,10 @@
                             {{ Auth::user()->name }} <span class="caret"></span>
                         </a>
 
+
+
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item" href="{{ route('profile.edit') }}">Мой аккаунт</a>
-    {{--                        <a class="dropdown-item" href="#">Избранные новости</a>--}}
-    {{--                        <a class="dropdown-item" href="#">Настройки</a>--}}
                             <a class="dropdown-item" href="{{ route('logout') }}"
                                onclick="event.preventDefault(); document.getElementById('logout-form').submit();"> Выйти
                             </a>
@@ -57,6 +58,11 @@
                                 @csrf
                             </form>
                         </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('profile.edit') }}">
+                            <img class="avatar-custom" src="{{ Auth::user()->avatar }}" alt="">
+                        </a>
                     </li>
 
             @endguest

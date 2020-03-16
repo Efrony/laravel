@@ -16,3 +16,11 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+//Route::get('user-admin', function (Request $request) {
+//    return response()->json(['status' => 'ok', 'id' => $request->id]);
+//})->middleware('api');
+
+Route::post('user-admin', 'Api\ApiAdminController@userToAdmin')->middleware('api');
+Route::post('create-resource', 'Api\ApiAdminController@createResource')->middleware('api');
+Route::post('delete-resource', 'Api\ApiAdminController@deleteResource')->middleware('api');

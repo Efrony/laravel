@@ -22,7 +22,9 @@ class NewsController extends Controller
     {
         return view('news.news', [
             'title' => 'Все новости',
-            'news' => News::paginate(8),
+            'news' => News::query()
+                ->orderBy('id', 'desc')
+                ->paginate(8),
             'categories' => Categories::all(),
         ]);
     }
@@ -31,7 +33,9 @@ class NewsController extends Controller
     {
         return view('news.news', [
             'title' => 'Новости в категории ' . $category->title,
-            'news' =>  $category->news()->paginate(8),
+            'news' =>  $category->news()
+                ->orderBy('id', 'desc')
+                ->paginate(8),
             'categories' => Categories::all(),
         ]);
     }
