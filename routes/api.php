@@ -22,5 +22,5 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 //})->middleware('api');
 
 Route::post('user-admin', 'Api\ApiAdminController@userToAdmin')->middleware('api');
-Route::post('create-link', 'Api\ApiAdminController@createLink')->middleware('api');
-Route::post('delete-link', 'Api\ApiAdminController@deleteLink')->middleware('api');
+Route::post('create-resource', 'Api\ApiAdminController@createResource')->middleware('api');
+Route::post('delete-resource', 'Api\ApiAdminController@deleteResource')->middleware('api');

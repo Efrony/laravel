@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Resources;
 use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -17,13 +18,26 @@ class ApiAdminController extends Controller
         return response()->json(['status' => 'ok', 'id' => $request->id, 'admin' => $user->admin]);
     }
 
-    public function createLink()
+    public function createResource(Request $request)
     {
-
+        if (!is_null($request->link)) {
+            $resource = new Resources();
+            $resource->link = $request->link;
+            $resource->save();
+            return response()->json([
+                'status' => 'ok',
+                'id' => $resource->id,
+                'link' => $resource->link,
+                'created_at' => $resource->created_at
+            ]);
+         }
+        return response()->json(['status' => 'error']);
     }
 
-    public function deleteLink()
+    public function deleteResource(Request $request)
     {
-
+        $resource= Resources::where('id', $request->id)->first();
+        $resource->delete();
+        return response()->json(['status' => 'ok', 'id' => $request->id]);
     }
 }

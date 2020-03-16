@@ -17,7 +17,7 @@
                         Администрирование
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <a class="dropdown-item" href="{{ route('admin.parser.index') }}">Управление парсингом</a>
+                        <a class="dropdown-item" href="{{ route('admin.resources.index') }}">Ресурсы новостей</a>
                         <a class="dropdown-item" href="{{ route('admin.users.index') }}">Пользователи</a>
                         <a class="dropdown-item" href="{{ route('admin.news.index') }}">Редактирование новостей</a>
                         <a class="dropdown-item" href="{{ route('admin.news.create') }}">Добавить новость</a>

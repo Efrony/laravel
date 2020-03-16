@@ -1,28 +1,22 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+use Illuminate\Database\Seeder;
 
-use App\Categories;
-use App\Jobs\NewsParsing;
-use App\News;
-use App\Resources;
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-use Orchestra\Parser\Xml\Facade as XmlParser;
-use App\Services\XMLParserService;
-
-class ParserController extends Controller
+class ResourcesSeeder extends Seeder
 {
-    public function index()
+    /**
+     * Run the database seeds.
+     *
+     * @return void
+     */
+    public function run()
     {
-        return view('admin.parser', [
-            'title' => 'Управление парсингом',
-             'resources' => Resources::paginate(10),
-        ]);
+        DB::table('resources')->insert($this->getData());
     }
-    public function load(XMLParserService $parserService)
+
+    private function getData()
     {
-        $rssLink = [
+        $data = [
             'https://news.yandex.ru/auto.rss',
             'https://news.yandex.ru/auto_racing.rss',
             'https://news.yandex.ru/army.rss',
@@ -37,16 +31,17 @@ class ParserController extends Controller
             'https://news.yandex.ru/movies.rss',
             'https://news.yandex.ru/cosmos.rss',
             'https://news.yandex.ru/culture.rss',
-     //       'https://news.yandex.ru/fire.rss',
+            //       'https://news.yandex.ru/fire.rss',
             'https://news.yandex.ru/championsleague.rss',
             'https://news.yandex.ru/music.rss',
             'https://news.yandex.ru/nhl.rss',
         ];
 
-        foreach ($rssLink as $link) {
-            //$parserService->saveNews($link);
-            NewsParsing::dispatch($link);
+        $resources = [];
+        foreach ($data as $item) {
+            $resources[] = ['link' => $item ];
         }
-        return redirect()->route('news.all');
+
+        return $resources;
     }
 }
